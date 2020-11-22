@@ -19,3 +19,29 @@ message Record{
     string genre = 2;
     string platform =3;
   }
+
+
+  message Artist {
+    string name =1;
+    enum Member {
+      YES = 0;
+      NO = 1;
+    }
+    Member member = 2;
+  }
+
+  string name = 1;
+  string date = 2;
+  string band = 3;
+  //array of songs
+  repeated Song songs = 4 ;
+  //array of artist
+  repeated Artist artist = 5 ;
+
+}
+
+//response to the client from saved record
+message savedResponse {
+  string key = 1;
+  int32 version = 2;
+}
