@@ -1,28 +1,21 @@
-//client updating the record
-message updateRecord{
-  string key =1;
-  int32 version = 2;
-  Record record = 3;
+syntax = "proto3";
+
+service songsStorageSystem{
+  //inserting record or write a record
+  rpc insert(Record) returns (savedResponse);
+  rpc updatingRec(updateRecord) returns (Confirmation);
+  
+  //read Record with a key and version
+  rpc readRecordWithKeyVer(savedResponse) returns (Record);
+  //read a files using the Criterion e.g song title or artist name
+  rpc readRecordWithCriterion(readWithCriterion) returns (AllRecords);
+
 }
 
-//confirmation on update of record
-message Confirmation{
-  string confirm = 1;
-}
+message Record{
 
-//client reading a record with a key
-message readRecordKey{
-  string key = 1;
-}
-
-//search with song title || artist name
-message readWithCriterion{
-  string songtitle = 1;
-  string artistname = 2;
-  string bandName = 3;
-}
-
-//message return all specified by string
-message AllRecords{
-  repeated Record records = 1;
-}
+  message Song {
+    string title =1;
+    string genre = 2;
+    string platform =3;
+  }
