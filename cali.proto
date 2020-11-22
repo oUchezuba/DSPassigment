@@ -1,48 +1,28 @@
-syntax = "proto3";
-
-service songsStorageSystem{
-  //inserting record or write a record
-  rpc insert(Record) returns (savedResponse);
-  rpc updatingRec(updateRecord) returns (Confirmation);
-  
-  //read Record with a key and version
-  rpc readRecordWithKeyVer(savedResponse) returns (Record);
-  //read a files using the Criterion e.g song title or artist name
-  rpc readRecordWithCriterion(readWithCriterion) returns (AllRecords);
-
-}
-
-message Record{
-
-  message Song {
-    string title =1;
-    string genre = 2;
-    string platform =3;
-  }
-  
-  
-  -
-  message Artist {
-    string name =1;
-    enum Member {
-      YES = 0;
-      NO = 1;
-    }
-    Member member = 2;
-  }
-
-  string name = 1;
-  string date = 2;
-  string band = 3;
-  //array of songs
-  repeated Song songs = 4 ;
-  //array of artist
-  repeated Artist artist = 5 ;
-
-}
-
-//response to the client from saved record
-message savedResponse {
-  string key = 1;
+//client updating the record
+message updateRecord{
+  string key =1;
   int32 version = 2;
+  Record record = 3;
+}
+
+//confirmation on update of record
+message Confirmation{
+  string confirm = 1;
+}
+
+//client reading a record with a key
+message readRecordKey{
+  string key = 1;
+}
+
+//search with song title || artist name
+message readWithCriterion{
+  string songtitle = 1;
+  string artistname = 2;
+  string bandName = 3;
+}
+
+//message return all specified by string
+message AllRecords{
+  repeated Record records = 1;
 }
