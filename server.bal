@@ -5,6 +5,7 @@ import ballerina/encoding;
 
 // gRPC read existing record. 
 
+
 resource function readRecordWithKeyVer(grpc:Caller caller, string recordId, versionRecordId) {
         string payload = "";
         error? output = ();
