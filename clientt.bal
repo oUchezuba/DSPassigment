@@ -37,5 +37,4 @@ import ballerina/encoding;
     } else {
         string output;
         grpc:Headers recordHeaders;
-        
-    }
+    };
