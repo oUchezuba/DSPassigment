@@ -37,3 +37,13 @@ import ballerina/encoding;
 		}
 	]
 	};
+	
+	// Find a record
+    log:printInfo("Find existing order");
+    var findRecord = recordSystem->Record("1.2");
+    if (findRecord is error) {
+        log:printError("Record does not exist!: \n");
+    } else {  
+        log:printInfo("Record is : " + output + "\n");
+    }
+}
