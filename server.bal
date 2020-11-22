@@ -37,3 +37,27 @@ service songsStorageSystem {
         error? output = caller->send(payload);
         output = caller->complete();
         }
+        
+        // gRPC read existing record. 
+
+resource function readRecordWithKeyVer(grpc:Caller caller, string recordId, versionRecordId) {
+        string payload = "";
+        error? output = ();
+
+        // Find the requested record.
+        if (ordersMap.hasKey(recordId) || ordersMap.hasKey(versionRecordId) || (ordersMap.hasKey(recordId) && ordersMap.hasKey(versionRecordId))) {
+            var jsonValue = typedesc<json>.constructFrom(ordersMap[recordId, versionRecordId]);
+            if (jsonValue is error) {
+
+                log:printError("Record not found!");
+            } else {
+                io:println("Record "+recordId+ "Version " +versionRecordId+);
+            }
+        } else {
+            // Record not found error.
+            payload = "Record : '" + recordId + "'does not exist.";
+            output = caller->sendError(grpc:NOT_FOUND, payload);
+        }
+     
+    }
+
